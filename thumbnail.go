@@ -134,6 +134,15 @@ type Generator struct {
 
 	// Scaler is the scaler to be used when generating thumbnails.
 	Scaler string
+
+	// options
+	o jpeg.Options
+}
+
+func SetOptions(o jpeg.Options) func(*Generator) {
+	return func(gen *Generator) {
+		gen.o = o
+	}
 }
 
 // CreateThumbnail generates a thumbnail.
@@ -149,7 +158,7 @@ func (gen *Generator) CreateThumbnail(i *Image) ([]byte, error) {
 	var buffer bytes.Buffer
 	switch i.ContentType {
 	case "image/jpeg":
-		err = jpeg.Encode(&buffer, dst, nil)
+		err = jpeg.Encode(&buffer, dst, &gen.o)
 	case "image/png":
 		err = png.Encode(&buffer, dst)
 	}
