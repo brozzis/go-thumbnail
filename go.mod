@@ -1,4 +1,4 @@
-module github.com/prplecake/go-thumbnail
+module github.com/brozzis/go-thumbnail
 
 go 1.16
 
